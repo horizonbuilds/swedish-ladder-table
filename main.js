@@ -202,9 +202,9 @@ function buildLabels() {
   labels.splice(0).forEach(l => l.el.remove());
   labelsDiv.innerHTML = '';
   const cm = (m) => Math.round(m * 100);
-  addLabel(() => new THREE.Vector3(0, params.bottomY + V.height + 0.16, 0.03),
+  addLabel(() => new THREE.Vector3(-0.52, params.bottomY + V.height + 0.13, 0.03),
     () => `רוחב סולם ${cm(V.width)} ס״מ ✓`, 'verified');
-  addLabel(() => new THREE.Vector3(0, params.bottomY + V.height + 0.10, V.stationDepth),
+  addLabel(() => new THREE.Vector3(0.42, params.bottomY + V.height + 0.17, V.stationDepth),
     () => `מתקן מתח · ${cm(V.stationDepth)} ס״מ מהקיר ✓`, 'verified');
   addLabel(() => new THREE.Vector3(V.width / 2 + 0.14, rungY(2) + spacing() / 2, A.rungZ),
     () => `ריווח ≈${(spacing() * 100).toFixed(1)} ס״מ (נגזר)`, 'assumed');
@@ -303,3 +303,4 @@ bindSlider('s-bottom', 'v-bottom', (v) => { params.bottomY = v / 100; rebuildAll
 rebuildAll();
 resize();
 animate();
+window.__ladder = { camera, controls, params, state, rungY };
