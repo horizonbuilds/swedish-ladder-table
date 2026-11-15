@@ -169,15 +169,15 @@ function buildTable() {
   const openAngle = Math.atan2(d.y, -d.z);
   tableGroup.userData.openAngle = openAngle;
 
-  const braceGeo = new THREE.BoxGeometry(0.04, 0.024, L);
+  const braceGeo = new THREE.BoxGeometry(0.055, 0.03, L);
   braceGeo.translate(0, 0, -L / 2);
   const footGeo = new THREE.BoxGeometry(0.05, 0.03, 0.05);
   for (const s of [-1, 1]) {
     const pivot = new THREE.Group();
     pivot.position.set(s * hookX, b1.y, b1.z);
-    const brace = new THREE.Mesh(braceGeo, steelDark);
+    const brace = new THREE.Mesh(braceGeo, steel);
     pivot.add(brace);
-    const foot = new THREE.Mesh(footGeo, steel);
+    const foot = new THREE.Mesh(footGeo, steelDark);
     foot.position.set(0, 0, -L);
     pivot.add(foot);
     tableGroup.add(pivot);
