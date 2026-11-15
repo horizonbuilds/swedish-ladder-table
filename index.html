@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>שולחן מתקפל לסולם השוודי — קונספט תלת־ממדי</title>
+<meta name="description" content="קונספט אינטראקטיבי לשולחן מתקפל שנתלה על שלבי הסולם השוודי של Ezoon. מידול ראשוני לתכנון — לא לייצור.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
+</script>
+</head>
+<body>
+<header class="topbar">
+  <div class="title-block">
+    <h1>שולחן מתקפל לסולם השוודי</h1>
+    <p class="subtitle">קונספט תלת־ממדי אינטראקטיבי · גרסה ראשונה לתכנון — לא שרטוט ביצוע</p>
+  </div>
+  <div class="controls">
+    <button id="btn-toggle" class="btn primary">קיפול</button>
+    <button id="btn-labels" class="btn">הסתר תוויות</button>
+    <button id="btn-reset" class="btn">איפוס מצלמה</button>
+  </div>
+</header>
+
+<main id="viewport">
+  <div id="scene-container"></div>
+  <div id="labels"></div>
+  <div class="hint">גרירה לסיבוב · גלגלת/צביטה לזום</div>
+</main>
+
+<section class="panel params">
+  <h2>פרמטרים (שחקו איתם)</h2>
+  <div class="sliders">
+    <label>אורך שולחן: <span id="v-length">110</span> ס״מ
+      <input type="range" id="s-length" min="62" max="140" value="110" step="1">
+    </label>
+    <label>עומק שולחן: <span id="v-depth">45</span> ס״מ
+      <input type="range" id="s-depth" min="35" max="60" value="45" step="1">
+    </label>
+    <label>שלב תלייה (מלמעלה): <span id="v-rung">6</span>
+      <input type="range" id="s-rung" min="1" max="6" value="6" step="1">
+    </label>
+    <label>גובה תחתית הסולם מהרצפה: <span id="v-bottom">55</span> ס״מ
+      <input type="range" id="s-bottom" min="30" max="140" value="55" step="1">
+    </label>
+  </div>
+  <p class="computed">גובה משטח השולחן מהרצפה: <strong id="v-height">—</strong> ס״מ</p>
+</section>
+
+<section class="panel concept">
+  <h2>רעיון הקונספט</h2>
+  <ul>
+    <li><strong>ווי נירוסטה</strong> (2) נתלים על השלב הנבחר ומשמשים כציר — השולחן מתלבש על השלב וניתן להורדה בשנייה.</li>
+    <li><strong>משטח ארוך</strong>: ברירת מחדל 110×45 ס״מ — רחב מהסולם ב־24 ס״מ לכל צד, כמו מגש טיסה, עם תמיכות שמתאימות לבליטה.</li>
+    <li><strong>תמיכות אלכסוניות מתקפלות</strong> (2) ננעלות על השלב שמתחתיו בשקע ייעודי — נושאות את הקצה הקדמי.</li>
+    <li><strong>בקיפול</strong> המשטח תלוי כלפי מטה צמוד לסולם ולא תופס מקום; מתקן המתח למעלה נשאר פנוי.</li>
+  </ul>
+</section>
+
+<section class="panel verified">
+  <h2>✅ מאומת מהיצרן</h2>
+  <p class="src">מקור: דף המוצר ב־KSP (מק״ט 380571) ודף היצרן ezoonboard.com, נבדק 15.11.2026</p>
+  <ul class="facts">
+    <li>רוחב סולם: <strong>62 ס״מ</strong></li>
+    <li>גובה סולם: <strong>118 ס״מ</strong></li>
+    <li>מספר שלבים: <strong>7</strong></li>
+    <li>עומק מתקן המתח: <strong>≈50 ס״מ מהקיר</strong></li>
+    <li>עומס מירבי: <strong>120 ק״ג</strong> — דירוג אימון של היצרן (תלייה אנכית)</li>
+    <li>קיבוע: קיר בטון/בלוקים בלבד, 8 דיבלים 10 מ״מ בעומק 80–90 מ״מ</li>
+  </ul>
+</section>
+
+<section class="panel assumed">
+  <h2>🟠 הנחות קונספט — דורשות מדידה</h2>
+  <ul>
+    <li>קוטר שלב: 30 מ״מ (טיפוסי לעץ בירץ׳, לא פורסם)</li>
+    <li>ריווח שלבים: ≈16.9 ס״מ (נגזר מחלוקה שווה של 118 ס״מ ל־7 שלבים)</li>
+    <li>מרחק מרכז שלב מהקיר: ≈7.5 ס״מ</li>
+    <li>פרופיל מוטות צד: 4×6 ס״מ</li>
+    <li>גובה תחתית הסולם מהרצפה: 55 ס״מ (תלוי התקנה — שולט בגובה השולחן)</li>
+    <li>מידות המשטח והתמיכות: בחירת קונספט, ניתנות לשינוי בסליידרים</li>
+  </ul>
+</section>
+
+<section class="panel measure">
+  <h2>📏 מה למדוד על הסולם האמיתי לפני ייצור</h2>
+  <ol>
+    <li>קוטר השלב (מחוגה או סרגל)</li>
+    <li>מרחק בין מרכזי שלבים סמוכים</li>
+    <li>מרחק מרכז השלב מהקיר</li>
+    <li>גובה השלב הנבחר מהרצפה (קובע את גובה השולחן)</li>
+    <li>עובי ורוחב מוט הצד</li>
+    <li>סוג הקיר בפועל (בטון/בלוקים — תנאי של היצרן)</li>
+  </ol>
+</section>
+
+<section class="panel safety">
+  <h2>⚠️ בטיחות</h2>
+  <p>זהו <strong>קונספט מכני להמחשה בלבד</strong> — לא שרטוט ביצוע ולא דירוג עומס. דירוג ה־120 ק״ג של היצרן מתייחס לאימון אנכי על הסולם, ולא תקף לשולחן תלוי היוצר מומנט קונסול על שלב אחד ועל עיגוני הקיר.</p>
+  <ul>
+    <li>נעילה נגד שחרור ווים (בריח/בורג נעילה) — חובה לפני העמסה</li>
+    <li>נעילת תמיכות פתוחה וסגורה, ובדיקה שהן לא משתחררות ברעד</li>
+    <li>נקודות צביטה בציר הווים ובציר התמיכות — רדיוסים ומרווחי אצבע</li>
+    <li>אין לייצר, לטעון או לשבת על השולחן לפני מדידת המידות ובדיקת יציבות בפועל</li>
+  </ul>
+</section>
+
+<footer>
+  <p>נבנה כגרסת קונספט ראשונה · הקוד פתוח ב־<a href="https://github.com/horizonbuilds/swedish-ladder-table">GitHub</a> · הדפלוימנט: GitHub Pages</p>
+</footer>
+
+<script type="module" src="main.js"></script>
+</body>
+</html>
