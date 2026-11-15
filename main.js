@@ -8,8 +8,8 @@ const VERIFIED = { width: 0.62, height: 1.18, rungs: 7, stationDepth: 0.50, maxL
 const ASSUMED = { railW: 0.04, railD: 0.06, rungR: 0.015, rungZ: 0.075, topSurf: 0.045, thick: 0.027 };
 
 const params = {
-  tableLen: 1.10,   // סליידר
-  tableDep: 0.45,   // סליידר
+  tableLen: 0.90,   // סליידר — רוחב לאורך הסולם
+  tableDep: 0.60,   // סליידר — בליטה מהקיר
   hookRung: 5,      // סליידר 0..5 (שלב 1-6 מלמעלה); התמיכות ננעלות על השלב שמתחת
   bottomY: 0.55,    // סליידר
 };
@@ -212,9 +212,9 @@ function buildLabels() {
     () => '⌀30 מ״מ (הנחה)', 'assumed');
   // תוויות על השולחן — עוקבות אחרי הקיפול
   addLabel(() => tableGroup.localToWorld(new THREE.Vector3(0, A.topSurf + 0.05, params.tableDep)),
-    () => `אורך ${Math.round(params.tableLen * 100)} ס״מ (קונספט)`, 'assumed');
+    () => `רוחב ${Math.round(params.tableLen * 100)} ס״מ (קונספט)`, 'assumed');
   addLabel(() => new THREE.Vector3(params.tableLen / 2 + 0.14, tableGroup.position.y + A.topSurf, A.rungZ + params.tableDep / 2),
-    () => `עומק ${Math.round(params.tableDep * 100)} (קונספט)`, 'assumed');
+    () => `בליטה ${Math.round(params.tableDep * 100)} ס״מ (קונספט)`, 'assumed');
   addLabel(() => new THREE.Vector3(-params.tableLen / 2 - 0.16, (tableGroup.position.y + A.topSurf) / 2, A.rungZ + params.tableDep),
     () => `גובה מהרצפה ≈${Math.round((tableGroup.position.y + A.topSurf) * 100)} ס״מ`, 'assumed');
 }
