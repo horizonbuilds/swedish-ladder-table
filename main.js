@@ -228,8 +228,13 @@ function updateLabels() {
     _v.copy(l.getPos()).project(camera);
     if (_v.z > 1 || _v.z < -1) { l.el.style.display = 'none'; continue; }
     l.el.style.display = '';
-    l.el.style.left = ((_v.x * 0.5 + 0.5) * w) + 'px';
-    l.el.style.top = ((-_v.y * 0.5 + 0.5) * h) + 'px';
+    let px = (_v.x * 0.5 + 0.5) * w;
+    let py = (-_v.y * 0.5 + 0.5) * h;
+    const mx = Math.min(85, w * 0.3), my = 18;   // clamp inside canvas so labels never clip
+    px = Math.min(Math.max(px, mx), w - mx);
+    py = Math.min(Math.max(py, my), h - my);
+    l.el.style.left = px + 'px';
+    l.el.style.top = py + 'px';
     const txt = l.getText();
     if (l.el.textContent !== txt) l.el.textContent = txt;
   }
