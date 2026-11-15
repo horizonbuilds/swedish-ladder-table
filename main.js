@@ -66,6 +66,7 @@ const woodDark = new THREE.MeshStandardMaterial({ color: 0xa87b47, roughness: 0.
 const steel = new THREE.MeshStandardMaterial({ color: 0x9fb2c4, roughness: 0.35, metalness: 0.8 });
 const steelDark = new THREE.MeshStandardMaterial({ color: 0x5b6b7c, roughness: 0.4, metalness: 0.7 });
 const topMat = new THREE.MeshStandardMaterial({ color: 0x3f8f6f, roughness: 0.55 });
+const hookMat = new THREE.MeshStandardMaterial({ color: 0xe8f1fb, roughness: 0.2, metalness: 0.9 });
 
 // ---------- גיאומטריית הסולם ----------
 const V = VERIFIED, A = ASSUMED;
@@ -144,14 +145,14 @@ function buildTable() {
 
   // ווים (ציר) — טבעת נירוסטה עוטפת את השלב + פלטת חיבור
   const hookX = V.width / 2 - A.railW - 0.02;
-  const torusGeo = new THREE.TorusGeometry(A.rungR + 0.010, 0.008, 12, 28, Math.PI * 1.5);
+  const torusGeo = new THREE.TorusGeometry(A.rungR + 0.017, 0.012, 14, 32, Math.PI * 1.5);
   for (const s of [-1, 1]) {
-    const hook = new THREE.Mesh(torusGeo, steel);
+    const hook = new THREE.Mesh(torusGeo, hookMat);
     hook.rotation.y = Math.PI / 2;           // הטבעת עוטפת את ציר X (השלב)
     hook.rotation.x = Math.PI * 0.25;        // פתיחה כלפי מעלה-אחורה להלבשה
     hook.position.set(s * hookX, 0, 0);
     tableGroup.add(hook);
-    const plate = new THREE.Mesh(new THREE.BoxGeometry(0.055, surf - thick + 0.01, 0.035), steel);
+    const plate = new THREE.Mesh(new THREE.BoxGeometry(0.06, surf - thick + 0.02, 0.04), hookMat);
     plate.position.set(s * hookX, (surf - thick) / 2 + 0.005, 0.004);
     tableGroup.add(plate);
     // בריח נעילה נגד שחרור (קונספט)
